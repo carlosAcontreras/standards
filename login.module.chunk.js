@@ -8539,7 +8539,7 @@ module.exports = ""
 /***/ "./src/app/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<section class=\"login__seccion\">\n  <div class=\"login\">\n    <h1 class=\"login__title\">Quality Standards</h1>\n    <div class=\"login__content\">\n      <div class=\"login__img\">\n        <img src=\"assets/img/Invertido-Negro.png\" alt=\"\">\n      </div>\n      <form class=\"login__form\" [formGroup]=\"rForm\" (ngSubmit)=\"startLogin(rForm.value)\">\n        <input type=\"email\" class=\"form-control\" placeholder=\"email\" formControlName='email' [class.is-invalid]=\"!rForm.controls['email'].valid && rForm.controls['email'].touched\">\n        <div class=\"invalid-feedback\" *ngIf=\"!rForm.controls['email'].valid && rForm.controls['email'].touched\">\n          invalid email\n        </div>\n        <input type=\"password\" class=\"form-control mt-3\" placeholder=\"password\" formControlName='password' [class.is-invalid]=\"!rForm.controls['password'].valid && rForm.controls['password'].touched\">\n        <div class=\"invalid-feedback\" *ngIf=\"!rForm.controls['password'].valid && rForm.controls['password'].touched\">\n          the field is required\n        </div>\n        <button class='btn btn-block login__btn mt-3' [disabled]=\"!rForm.valid\">Log In</button>\n      </form>\n    </div>\n    <a class=\"login__link\" href=\"\">Forgot password?</a>\n  </div>\n</section>\n"
+module.exports = "<section class=\"login__seccion\">\r\n  <div class=\"login\">\r\n    <div class=\"login__content\">\r\n      <div class=\"login__img\">\r\n        <img src=\"assets/img/logo-aiesec.png\" alt=\"\">\r\n      </div>\r\n      <form class=\"login__form\" [formGroup]=\"rForm\" (ngSubmit)=\"startLogin(rForm.value)\">\r\n        <input type=\"email\" class=\"form-control\" placeholder=\"email\" formControlName='email' [class.is-invalid]=\"!rForm.controls['email'].valid && rForm.controls['email'].touched\">\r\n        <div class=\"invalid-feedback\" *ngIf=\"!rForm.controls['email'].valid && rForm.controls['email'].touched\">\r\n          invalid email\r\n        </div>\r\n        <input type=\"password\" class=\"form-control mt-3\" placeholder=\"password\" formControlName='password' [class.is-invalid]=\"!rForm.controls['password'].valid && rForm.controls['password'].touched\">\r\n        <div class=\"invalid-feedback\" *ngIf=\"!rForm.controls['password'].valid && rForm.controls['password'].touched\">\r\n          the field is required\r\n        </div>\r\n        <button class='btn btn-block login__btn mt-3' [disabled]=\"!rForm.valid\">Log In</button>\r\n      </form>\r\n    </div>\r\n    <a class=\"login__link\" href=\"https://auth.aiesec.org/users/password/new?country=Colombia\">Reset password</a>\r\n  </div>\r\n</section>\r\n"
 
 /***/ }),
 
@@ -8583,9 +8583,6 @@ var LoginComponent = /** @class */ (function () {
     }
     LoginComponent.prototype.ngOnInit = function () {
         this._AuthService.sessionValidate();
-        if (localStorage.getItem('user')) {
-            this.router.navigate(['/app']);
-        }
     };
     LoginComponent.prototype.startLogin = function (rForm) {
         var _this = this;
