@@ -13737,6 +13737,18 @@ var AuthService = /** @class */ (function () {
         if (!validate)
             this.router.navigate(['/']);
     };
+    AuthService.prototype.orderstandars = function (Namestandars) {
+        return Namestandars.standards.map(function (kindStandars) {
+            return {
+                'id': kindStandars.id, 'name': kindStandars.name,
+                'option': kindStandars.option, 'id_oportunity': Namestandars.id,
+                'order': kindStandars.meta.order_id, 'position': kindStandars.position,
+                'icon': kindStandars.meta.icon, 'description1': kindStandars.meta.description1
+            };
+        }).sort(function (a, b) {
+            return (a.position - b.position);
+        });
+    };
     AuthService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* Router */]])
