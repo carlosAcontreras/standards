@@ -49,7 +49,7 @@ module.exports = ""
 /***/ "./src/app/component/detail-standards/detail-standards.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"detall-secction  p-3 p-md-4\">\r\n  <h1 class=\"title\">STANDARDS AND SATISFACTIONS</h1>\r\n  <p>To ensure delivery of quality leadership experiences, AIESEC has a set of standars to be fallowed for any internship\r\n    we provide</p>\r\n  <div class=\"detal-standars\" >\r\n\r\n    <div *ngIf=\"Standards == '' \" class=\"loaders\">\r\n      <div class=\"loader loader--style6\" title=\"5\">\r\n        <svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\r\n          width=\"24px\" height=\"30px\" viewBox=\"0 0 24 30\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\r\n          <rect x=\"0\" y=\"13\" width=\"4\" height=\"5\" fill=\"#333\">\r\n            <animate attributeName=\"height\" attributeType=\"XML\" values=\"5;21;5\" begin=\"0s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n            <animate attributeName=\"y\" attributeType=\"XML\" values=\"13; 5; 13\" begin=\"0s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n          </rect>\r\n          <rect x=\"10\" y=\"13\" width=\"4\" height=\"5\" fill=\"#333\">\r\n            <animate attributeName=\"height\" attributeType=\"XML\" values=\"5;21;5\" begin=\"0.15s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n            <animate attributeName=\"y\" attributeType=\"XML\" values=\"13; 5; 13\" begin=\"0.15s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n          </rect>\r\n          <rect x=\"20\" y=\"13\" width=\"4\" height=\"5\" fill=\"#333\">\r\n            <animate attributeName=\"height\" attributeType=\"XML\" values=\"5;21;5\" begin=\"0.3s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n            <animate attributeName=\"y\" attributeType=\"XML\" values=\"13; 5; 13\" begin=\"0.3s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n          </rect>\r\n        </svg>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"standars\" *ngFor=\"let standard of Standards; let i = index\">\r\n      <div \r\n      [ngClass]=\"{'img-null':standard.option == null || standard.option == 'null', \r\n      'img-false':standard.option == 'false'}\"\r\n      >\r\n      </div>\r\n       \r\n      \r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"detall-secction  p-3 p-md-4\">\r\n  <h1 class=\"title\">STANDARDS AND SATISFACTIONS</h1>\r\n  <p class=\" paragraph\">To ensure delivery of quality leadership experiences, AIESEC has a set of standars to be fallowed for any internship\r\n    we provide</p>\r\n  <div class=\"detal-standars\" >\r\n\r\n    <div *ngIf=\"Standards == '' \" class=\"loaders\">\r\n      <div class=\"loader loader--style6\" title=\"5\">\r\n        <svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\r\n          width=\"24px\" height=\"30px\" viewBox=\"0 0 24 30\" style=\"enable-background:new 0 0 50 50;\" xml:space=\"preserve\">\r\n          <rect x=\"0\" y=\"13\" width=\"4\" height=\"5\" fill=\"#333\">\r\n            <animate attributeName=\"height\" attributeType=\"XML\" values=\"5;21;5\" begin=\"0s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n            <animate attributeName=\"y\" attributeType=\"XML\" values=\"13; 5; 13\" begin=\"0s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n          </rect>\r\n          <rect x=\"10\" y=\"13\" width=\"4\" height=\"5\" fill=\"#333\">\r\n            <animate attributeName=\"height\" attributeType=\"XML\" values=\"5;21;5\" begin=\"0.15s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n            <animate attributeName=\"y\" attributeType=\"XML\" values=\"13; 5; 13\" begin=\"0.15s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n          </rect>\r\n          <rect x=\"20\" y=\"13\" width=\"4\" height=\"5\" fill=\"#333\">\r\n            <animate attributeName=\"height\" attributeType=\"XML\" values=\"5;21;5\" begin=\"0.3s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n            <animate attributeName=\"y\" attributeType=\"XML\" values=\"13; 5; 13\" begin=\"0.3s\" dur=\"0.6s\" repeatCount=\"indefinite\" />\r\n          </rect>\r\n        </svg>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"standars\" *ngFor=\"let standard of Standards; let i = index\"\r\n     [ngClass]=\"{'background-green':standard.option == 'true', \r\n      'background-red':standard.option == 'false'}\">\r\n        <div class=\"standars_content\">\r\n          <img src=\"assets/img/{{ standard.icon }}.png\">\r\n        </div>\r\n        <p class=\"standars_title\">{{ standard.name }}</p>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -89,26 +89,21 @@ var DetailStandardsComponent = /** @class */ (function () {
         var _this = this;
         var token = localStorage.getItem('token');
         this._AuthService.getStandards(token).subscribe(function (response) {
-            if (!response.result) {
-                __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default()('', 'expired session', 'info');
-                localStorage.clear();
-                _this._AuthService.sessionValidate();
-                return;
-            }
-            if (response.data[0] !== undefined) {
-                for (var _i = 0, _a = response.data[0].standards; _i < _a.length; _i++) {
-                    var standard = _a[_i];
-                    _this.Standards.push({ 'id': standard.id, 'name': standard.name,
-                        'option': standard.option, 'id_oportunity': response.data[0].id,
-                        'order': standard.meta.order_id });
+            if (response.result) {
+                if (response.data[0] !== undefined) {
+                    _this.Standards = _this._AuthService.orderstandars(response.data[0]);
+                    console.info(_this.Standards);
                 }
-                _this.Standards = _this.Standards.sort(function (a, b) {
-                    return (a.order - b.order);
-                });
+                else {
+                    __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default()('', 'unauthorized user', 'info');
+                    localStorage.clear();
+                    _this._AuthService.sessionValidate();
+                    return;
+                }
             }
             else {
-                __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default()('', 'unauthorized user', 'info');
-                localStorage.clear();
+                __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default()('', 'expired session', 'info');
+                localStorage.removeItem('user');
                 _this._AuthService.sessionValidate();
                 return;
             }
