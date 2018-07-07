@@ -8600,7 +8600,7 @@ var LoginComponent = /** @class */ (function () {
         if (validate.result) {
             localStorage.setItem('token', validate.token);
             localStorage.setItem('user', rForm.email);
-            this.router.navigate(['/app/standards']);
+            this.router.navigate(['/app/list-standards']);
         }
         else {
             __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default()('', 'Incorrect user or password', 'error');

@@ -89,6 +89,7 @@ var DetailStandardsComponent = /** @class */ (function () {
         var _this = this;
         var token = localStorage.getItem('token');
         this._AuthService.getStandards(token).subscribe(function (response) {
+            console.log(response);
             if (response.result) {
                 if (response.data[0] !== undefined) {
                     _this.Standards = _this._AuthService.orderstandars(response.data[0]);
