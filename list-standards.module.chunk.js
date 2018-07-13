@@ -93,7 +93,6 @@ var ListStandardsComponent = /** @class */ (function () {
         var _this = this;
         var token = localStorage.getItem('token');
         this._AuthService.getStandards(token).subscribe(function (response) {
-            console.log(response);
             if (response.result) {
                 if (response.data[0] !== undefined) {
                     _this.Standards = _this._AuthService.orderstandars(response.data[0]);
@@ -102,14 +101,14 @@ var ListStandardsComponent = /** @class */ (function () {
                     __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default()('', 'unauthorized user', 'info');
                     localStorage.clear();
                     _this._AuthService.sessionValidate();
-                    return;
+                    return false;
                 }
             }
             else {
                 __WEBPACK_IMPORTED_MODULE_3_sweetalert2___default()('', 'expired session', 'info');
                 localStorage.removeItem('user');
                 _this._AuthService.sessionValidate();
-                return;
+                return false;
             }
         }, function (error) {
             console.log('problemas de conexion');
